@@ -7,6 +7,9 @@ public class LevelManager : MonoBehaviour
     public Transform startPoint;
     public Transform[] path;
 
+    //public GameObject uiElements;
+    //public EnemySpawner spawner;
+
     public int currency;
 
 
@@ -17,8 +20,21 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        //if (spawner != null)//delete between if it dont work 
+        //{
+        //    spawner.gameObject.SetActive(false);
+        //}//delete between if it dont work 
         currency = 100;
     }
+
+    //public void StartGame()//delete between if it dont work 
+    //{
+    //    if(spawner != null)
+    //    {
+    //        spawner.gameObject.SetActive(true);
+    //        spawner.Start();
+    //    }
+    //}//delete between if it dont work 
 
     public void IncreaseCurrency(int amount)
     {
