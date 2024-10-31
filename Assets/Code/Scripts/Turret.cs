@@ -7,7 +7,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private Transform turretRotationPoint;
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform firingPoint;
+    [SerializeField] protected Transform firingPoint;
 
     [Header("Attributes")]
     [SerializeField] private float targetingRange = 5f;
@@ -17,7 +17,7 @@ public class Turret : MonoBehaviour
 
 
 
-    private Transform target;
+    protected Transform target;
     private Coroutine targetUpdateCoroutine;
     private float timeUntilFire;
 
@@ -45,7 +45,7 @@ public class Turret : MonoBehaviour
         }
     }
     
-    private void Shoot()
+    protected virtual void Shoot()
     {
         GameObject bulletObj = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
         Bullet bulletScript = bulletObj.GetComponent<Bullet>();

@@ -616,6 +616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currencyUI: {fileID: 1569699035}
   anim: {fileID: 276269279}
+  menu: {fileID: 0}
 --- !u!95 &276269279
 Animator:
   serializedVersion: 7
@@ -2582,8 +2583,8 @@ MonoBehaviour:
   - Name: Freeze Turret
     Cost: 150
     Prefab: {fileID: 8259219749526077851, guid: 0ba5c5fd31be07a44a93112e8c09333d, type: 3}
-  - Name: New Turret
-    Cost: 100
+  - Name: Energy Turret
+    Cost: 1
     Prefab: {fileID: 108917735929520256, guid: 315334f5a8ff6b6458a87eef072e24bc, type: 3}
 --- !u!1001 &1229791170166214862
 PrefabInstance:

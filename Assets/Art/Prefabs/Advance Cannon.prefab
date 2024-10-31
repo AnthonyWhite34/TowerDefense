@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8412287151383018535}
-  - component: {fileID: 1761043525755411951}
   - component: {fileID: 5767065901212221728}
   - component: {fileID: 7518976758073126923}
+  - component: {fileID: -1933615176871616364}
   m_Layer: 0
-  m_Name: Tier1Tower
+  m_Name: Advance Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 108917735929520256}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.04, y: -0.54, z: 0}
+  m_LocalPosition: {x: 1.04, y: -0.524, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -36,28 +36,6 @@ Transform:
   - {fileID: 431631040739320307}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1761043525755411951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 108917735929520256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84d19b6be01ce2347b0d511729b0c513, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turretRotationPoint: {fileID: 431631040739320307}
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 64
-  bulletPrefab: {fileID: 4908518879497480992, guid: b6e76eb5180e25b4a803e2c888a2ac94, type: 3}
-  firingPoint: {fileID: 1659987471076214771}
-  targetingRange: 5
-  rotationSpeed: 200
-  targetUpdateDelay: 0.1
-  bps: 0.5
 --- !u!61 &5767065901212221728
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -159,6 +137,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-1933615176871616364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108917735929520256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2336afef9f6de6c4daf01099f25b3f0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretRotationPoint: {fileID: 431631040739320307}
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 64
+  bulletPrefab: {fileID: 4908518879497480992, guid: b6e76eb5180e25b4a803e2c888a2ac94, type: 3}
+  firingPoint: {fileID: 1659987471076214771}
+  targetingRange: 7
+  rotationSpeed: 220
+  targetUpdateDelay: 0.1
+  bps: 0.5
+  energyBulletPrefab: {fileID: 2677467141583307467, guid: 19371596e04a48847af44f108fb97ac0, type: 3}
 --- !u!1 &228447532272725760
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +185,7 @@ Transform:
   m_GameObject: {fileID: 228447532272725760}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.001, y: 0.563, z: 0}
+  m_LocalPosition: {x: 0.004, y: 0.552, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -216,8 +217,8 @@ Transform:
   m_GameObject: {fileID: 2128679326361773123}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.001, y: -0.08, z: 0}
-  m_LocalScale: {x: 0.073232695, y: 0.073232695, z: 0.073232695}
+  m_LocalPosition: {x: 0.008, y: -0.078, z: 0}
+  m_LocalScale: {x: 0.06722342, y: 0.06722342, z: 0.06722342}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8412287151383018535}
@@ -266,7 +267,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 2192164928809446783, guid: 1e1c0688b29db3b438d009ed471954e1, type: 3}
+  m_Sprite: {fileID: -1523913343, guid: 4723abc7162c2db4dbd6c09918b3def4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -303,8 +304,8 @@ Transform:
   m_GameObject: {fileID: 4935751590724202109}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0050000567, y: 0.18299998, z: 0}
-  m_LocalScale: {x: 0.11778456, y: 0.11778456, z: 0.11778456}
+  m_LocalPosition: {x: 0.012, y: 0.018, z: 0}
+  m_LocalScale: {x: 0.1538, y: 0.1538, z: 0.1538}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 431631040739320307}
@@ -353,12 +354,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 7583383135300029158, guid: b6bddb5dbdf204f4889171a2f9fe03d5, type: 3}
+  m_Sprite: {fileID: -3509763003365697328, guid: 0cd5756d0ca02ef4dbad489d597f83ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.93, y: 7.73}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -389,7 +390,7 @@ Transform:
   m_GameObject: {fileID: 8464252856301716988}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.014, y: -0.08, z: 0}
+  m_LocalPosition: {x: -0.006, y: 0.016, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
