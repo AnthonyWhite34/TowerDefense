@@ -1,23 +1,34 @@
 using UnityEngine;
 
+
 public class Health : MonoBehaviour
 {
+
     [Header("Attributes")]
     [SerializeField] private int hitPoints = 2;
     [SerializeField] private int currencyWorth = 50;
 
-    private bool isDestroyed = false;
+    public int damage;
     public void TakeDamage(int dmg)
     {
         hitPoints -= dmg;
         Debug.Log($"{gameObject.name} took {dmg} damage, remaining HP: {hitPoints}");
 
-        if (hitPoints <= 0 && !isDestroyed)
+        if (hitPoints <= 0)
         {
-            EnemySpawner.onEnemyDestroy.Invoke();
+            EnemySpawner.onEnemyDestroy.Invoke();//justdecrements the enemy counter
             LevelManager.Main.IncreaseCurrency(currencyWorth);
-            isDestroyed = true;
             Destroy(gameObject);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D other)//Do not check Is "Trigger box" on Collider 2D!
+    {
+        if (other.gameObject.GetComponent<BaseHealth>() != null)
+        {
+            other.gameObject.GetComponent<BaseHealth>().TakeDamage(damage);
+            Destroy(gameObject);
+        }
+    }
+
 }

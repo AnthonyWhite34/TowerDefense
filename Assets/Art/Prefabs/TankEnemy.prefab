@@ -182,3 +182,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 4
   currencyWorth: 100
+  damageAmount: 2

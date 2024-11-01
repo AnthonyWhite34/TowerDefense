@@ -20,7 +20,7 @@ public class BaseHealth : MonoBehaviour
         currentHealth = maxHealth; // Initialize base health
     }
 
-    public void TakeDamage(int damage) // function called in EnemyMovement
+    public void TakeDamage(int damage) // function called in Health.
     {
         currentHealth = currentHealth - damage;
         Debug.Log($"BaseHealth: {currentHealth}");

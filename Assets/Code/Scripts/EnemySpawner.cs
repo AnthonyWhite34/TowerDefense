@@ -66,7 +66,7 @@ public class EnemySpawner : MonoBehaviour
     }
     private void Awake()
     {
-        onEnemyDestroy.AddListener(EnemyDestroyed);
+        onEnemyDestroy.AddListener(EnemyDestroyed);// called from the health class
     }
     private void EnemyDestroyed()
     {
