@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)//Do not check Is "Trigger box" on Collider 2D!
+    private void OnCollisionEnter2D(Collision2D other)//Do not check Is "Trigger box" on Collider 2D! When enemy runs into BaseHealth
     {
         if (other.gameObject.GetComponent<BaseHealth>() != null)
         {
