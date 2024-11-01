@@ -7,15 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        
-        SceneManager.LoadScene("Level1"); //Change to SceneManager.LoadSceneAsync(1); if code isnt working
-        //LevelManager levelManager = FindFirstObjectByType<LevelManager>(); // Delete if it dont work
-        //if(levelManager != null )
-        //{
-        //    levelManager.StartGame();
-        //}
-        //Delete if it dont work
-
+        SceneManager.LoadSceneAsync(1); //Change to SceneManager.LoadSceneAsync(1); if code isnt working
     }
 
     public void ExitGame()

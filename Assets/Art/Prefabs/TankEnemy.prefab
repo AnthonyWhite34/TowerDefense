@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8978697033563246581}
   - component: {fileID: 8850313114931112760}
   - component: {fileID: 4551992580290598549}
-  - component: {fileID: 1104850594263263226}
   - component: {fileID: 6976735785224728906}
+  - component: {fileID: 8251203211847987522}
   - component: {fileID: 6691991588418505138}
   m_Layer: 6
   m_Name: TankEnemy
@@ -118,20 +118,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &1104850594263263226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7452432541631580616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8478e32b0ac8f9e40a9a8c700c4efedf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 4551992580290598549}
-  movementSpeed: 1
 --- !u!58 &6976735785224728906
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -168,6 +154,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &8251203211847987522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7452432541631580616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8478e32b0ac8f9e40a9a8c700c4efedf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 4551992580290598549}
+  movementSpeed: 1
 --- !u!114 &6691991588418505138
 MonoBehaviour:
   m_ObjectHideFlags: 0
