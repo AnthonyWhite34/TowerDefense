@@ -5,46 +5,50 @@ using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] TextMeshProUGUI currencyUI;
-    [SerializeField] Animator anim;
+    [SerializeField] private TextMeshProUGUI currencyUI;
+    [SerializeField] private Animator anim;
+    [SerializeField] private GameObject gameOverScreen; // Game Over reference
+    [SerializeField] private GameObject menu;
 
     private bool isMenuOpen = true;
 
-    public GameObject menu;
-
-    private void Start()// might want to remove.
+    private void Start()
     {
         ToggleMenu();
-        ShowMenu(); // Shows menu once the a level has been called 
-        
+        ShowMenu(); // Show menu when a level loads, if needed
     }
 
-    public void ShowMenu() // might want to remove
+    private void Update()
+    {
+        if (currencyUI != null && LevelManager.Main != null)
+        {
+            currencyUI.text = LevelManager.Main.currency.ToString();
+        }
+    }
+
+    public void ShowMenu()
     {
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name != "MainMenu")
         {
             ToggleMenu();
-            //menu.SetActive(true);
         }
-        
-    }// might want to remove 
+    }
 
-    public void ToggleMenu()
+    public void ToggleMenu() //for the shop menu animation
     {
-        
         isMenuOpen = !isMenuOpen;
         anim.SetBool("MenuOpen", isMenuOpen);
-        
-        
     }
 
-    private void OnGUI()
+    public void ShowGameOverScreen()
     {
-        currencyUI.text = LevelManager.Main.currency.ToString();
+        if (gameOverScreen != null) gameOverScreen.SetActive(true);
+        if (menu != null) menu.SetActive(false);
     }
+
     public void SetSelected()
     {
-
+        // Implement selection logic here, if needed
     }
 }

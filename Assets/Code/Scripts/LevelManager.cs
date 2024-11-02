@@ -53,6 +53,7 @@ public class LevelManager : MonoBehaviour
         gameOver = true;
         EnemySpawner enemySpawner = gameObject.GetComponent<EnemySpawner>();
         enemySpawner.StopSpawning();
-        // now we need to hid the Menu and Show the GameOVerScreen.
+        // now we need to hid the Menu and Show the GameOVerScreen    need to get from menu .ShowGameOverScreen() 
+        gameObject.GetComponent<Menu>().ShowGameOverScreen(); // calls the gameoverscreen and sets it as active while deactivating the other menu. 
     }
 }
