@@ -8,7 +8,7 @@ public class Menu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currencyUI;
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject gameOverScreen; // Game Over reference
-    [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject shopMenu;
 
     private bool isMenuOpen = true;
 
@@ -41,10 +41,11 @@ public class Menu : MonoBehaviour
         anim.SetBool("MenuOpen", isMenuOpen);
     }
 
-    public void ShowGameOverScreen()
+    public void ShowGameOverScreen() //might need to delete.
     {
+        
+        if (shopMenu != null) shopMenu.SetActive(false);
         if (gameOverScreen != null) gameOverScreen.SetActive(true);
-        if (menu != null) menu.SetActive(false);
     }
 
     public void SetSelected()

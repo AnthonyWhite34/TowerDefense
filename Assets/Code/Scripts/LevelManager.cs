@@ -8,52 +8,89 @@ public class LevelManager : MonoBehaviour
     public Transform startPoint;
     public Transform[] path;
 
-
     public int currency;
     public static bool gameOver = false;
 
-    
+    private Menu menu;
 
-
+    [SerializeField] private GameObject shopMenu; // Assign in Inspector
+    [SerializeField] private GameObject gameOverScreen; // Assign in Inspector
 
     private void Awake()
     {
         Main = this;
+
+        // Check for an existing Menu component on the same GameObject
+        menu = gameObject.GetComponent<Menu>();
+        if (menu == null)
+        {
+            Debug.LogWarning("Menu component not found on this GameObject.");
+        }
     }
 
     private void Start()
     {
         currency = 100;
+
+        // Show shopMenu when the level starts
+        if (shopMenu != null)
+        {
+            shopMenu.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Shop menu is not assigned in the Inspector.");
+        }
+
+        // Ensure Game Over screen is hidden at the start
+        if (gameOverScreen != null)
+        {
+            gameOverScreen.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Game Over screen is not assigned in the Inspector.");
+        }
     }
-
-
 
     public void IncreaseCurrency(int amount)
     {
         currency += amount;
     }
+
     public bool SpendCurrency(int amount)
     {
-        if (amount <=  currency)
+        if (amount <= currency)
         {
-            // Buy item
             currency -= amount;
             return true;
         }
         else
         {
-            Debug.Log("You do not have  enough to purchase this item");
+            Debug.Log("You do not have enough currency to purchase this item.");
             return false;
         }
     }
-    //When called it will end the game. need to call from Base Health
+
+    // When called, it will end the game
     public void EndGame()
     {
-        Debug.Log("EndGame Called in Level manager");
+        Debug.Log("EndGame Called in LevelManager");
         gameOver = true;
+
+        // Stop enemy spawning
         EnemySpawner enemySpawner = gameObject.GetComponent<EnemySpawner>();
-        enemySpawner.StopSpawning();
-        // now we need to hid the Menu and Show the GameOVerScreen    need to get from menu .ShowGameOverScreen() 
-        gameObject.GetComponent<Menu>().ShowGameOverScreen(); // calls the gameoverscreen and sets it as active while deactivating the other menu. 
+        if (enemySpawner != null)
+        {
+            enemySpawner.StopSpawning();
+        }
+        else
+        {
+            Debug.LogError("EnemySpawner component not found on LevelManager GameObject.");
+        }
+
+        // Hide shopMenu and show Game Over screen
+        if (shopMenu != null) shopMenu.SetActive(false);
+        if (gameOverScreen != null) gameOverScreen.SetActive(true);
     }
 }
