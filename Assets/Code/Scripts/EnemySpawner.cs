@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+
 public class EnemySpawner : MonoBehaviour
 {
-
     [Header("References")]
     [SerializeField] private GameObject[] enemyPrefabs;
 
@@ -29,27 +29,21 @@ public class EnemySpawner : MonoBehaviour
     [Header("List")]
     private List<GameObject> spawnedEnemies = new List<GameObject>();
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() 
+    void Start()
     {
-        //baseEnemies = 8;
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name != "MainMenu")
         {
             StartCoroutine(StartWave());
         }
-        
-
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!isSpawning) return;
         timeSinceLastSpawn += Time.deltaTime;
 
-        if(timeSinceLastSpawn >= (1f / eps) && enemiesLeftToSpawn > 0)
+        if (timeSinceLastSpawn >= (1f / eps) && enemiesLeftToSpawn > 0)
         {
             SpawnEnemy();
             enemiesLeftToSpawn--;
@@ -59,8 +53,9 @@ public class EnemySpawner : MonoBehaviour
         if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
         {
             EndWave();
-        } 
+        }
     }
+
     private void EndWave()
     {
         isSpawning = false;
@@ -68,17 +63,20 @@ public class EnemySpawner : MonoBehaviour
         currentWave++;
         StartCoroutine(StartWave());
     }
+
     private void Awake()
     {
-        onEnemyDestroy.AddListener(EnemyDestroyed);// called from the health class
+        onEnemyDestroy.AddListener(EnemyDestroyed); // called from the health class
     }
+
     private void EnemyDestroyed()
     {
         enemiesAlive--;
     }
+
     public IEnumerator StartWave()
     {
-        yield return new WaitForSeconds(timeBetweenWaves);// might not need this
+        yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning = true;
         enemiesLeftToSpawn = EnemiesPerWave();
         eps = EnemiesPerSecond();
@@ -88,27 +86,37 @@ public class EnemySpawner : MonoBehaviour
     {
         int index = Random.Range(0, enemyPrefabs.Length);
         GameObject prefabToSpawn = enemyPrefabs[index];
-        Instantiate(prefabToSpawn, LevelManager.Main.startPoint.position, Quaternion.identity);
+        GameObject enemyInstance = Instantiate(prefabToSpawn, LevelManager.Main.startPoint.position, Quaternion.identity);
+
+        // Add the spawned enemy to the list
+        spawnedEnemies.Add(enemyInstance);
     }
 
     private int EnemiesPerWave()
     {
         return Mathf.RoundToInt(baseEnemies * Mathf.Pow(currentWave, difficultyScalingFactor));
     }
+
     private float EnemiesPerSecond()
     {
         return Mathf.Clamp(enemiesPerSecond * Mathf.Pow(currentWave, difficultyScalingFactor), 0f, enemiesPerSecondCap);
     }
 
-    // Test below
     public void StopSpawning()
     {
-        Debug.Log("StopSpawning called in EnemySpawner. enemyPrefabs should be set to null"); 
-        isSpawning = true; // the game will stop becuase it thinks the enemys are still spawing. 
-        enemiesLeftToSpawn = 0;  // This prevents any remaining enemies from spawning
-        foreach (GameObject enemy in spawnedEnemies) // this will destroy all the reamining enemys and the game will be put at a stailmate.
+        Debug.Log("Stopping spawning and destroying all remaining enemies.");
+        isSpawning = false;
+        enemiesLeftToSpawn = 0;
+
+        // Destroy each spawned enemy and clear the list
+        foreach (GameObject enemy in spawnedEnemies)
         {
-            EnemyDestroyed();
+            if (enemy != null)
+            {
+                Destroy(enemy);
+            }
         }
+        spawnedEnemies.Clear(); // Clear the list after destroying all instances
+        //LevelManager.Main.EndGame();
     }
 }
