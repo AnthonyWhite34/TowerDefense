@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -25,11 +26,14 @@ public class EnemySpawner : MonoBehaviour
     private float eps; // enimes per second
     private bool isSpawning = false;
 
-    
+    [Header("List")]
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() 
     {
+        //baseEnemies = 8;
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name != "MainMenu")
         {
@@ -94,5 +98,17 @@ public class EnemySpawner : MonoBehaviour
     private float EnemiesPerSecond()
     {
         return Mathf.Clamp(enemiesPerSecond * Mathf.Pow(currentWave, difficultyScalingFactor), 0f, enemiesPerSecondCap);
+    }
+
+    // Test below
+    public void StopSpawning()
+    {
+        Debug.Log("StopSpawning called in EnemySpawner. enemyPrefabs should be set to null"); 
+        isSpawning = true; // the game will stop becuase it thinks the enemys are still spawing. 
+        enemiesLeftToSpawn = 0;  // This prevents any remaining enemies from spawning
+        foreach (GameObject enemy in spawnedEnemies) // this will destroy all the reamining enemys and the game will be put at a stailmate.
+        {
+            EnemyDestroyed();
+        }
     }
 }

@@ -25,6 +25,14 @@ public class BaseHealth : MonoBehaviour
         currentHealth = currentHealth - damage;
         Debug.Log($"BaseHealth: {currentHealth}");
         // Check if base health is depleted
+        if (currentHealth <= 0)
+        {
+            // Need to stop the game then call the Loose screen
+            // i think im gonn try and just 
+            LevelManager.Main.EndGame();
+            
+
+        }
     }
 
     

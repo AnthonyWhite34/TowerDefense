@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 2
   currencyWorth: 50
+  damage: 1
 --- !u!114 &2064109153523963475
 MonoBehaviour:
   m_ObjectHideFlags: 0

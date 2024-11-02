@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -7,10 +8,12 @@ public class LevelManager : MonoBehaviour
     public Transform startPoint;
     public Transform[] path;
 
-    //public GameObject uiElements;
-    //public EnemySpawner spawner;
 
     public int currency;
+    public static bool gameOver = false;
+
+    
+
 
 
     private void Awake()
@@ -20,21 +23,10 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        //if (spawner != null)//delete between if it dont work 
-        //{
-        //    spawner.gameObject.SetActive(false);
-        //}//delete between if it dont work 
         currency = 100;
     }
 
-    //public void StartGame()//delete between if it dont work 
-    //{
-    //    if(spawner != null)
-    //    {
-    //        spawner.gameObject.SetActive(true);
-    //        spawner.Start();
-    //    }
-    //}//delete between if it dont work 
+
 
     public void IncreaseCurrency(int amount)
     {
@@ -54,5 +46,13 @@ public class LevelManager : MonoBehaviour
             return false;
         }
     }
-
+    //When called it will end the game. need to call from Base Health
+    public void EndGame()
+    {
+        Debug.Log("EndGame Called in Level manager");
+        gameOver = true;
+        EnemySpawner enemySpawner = gameObject.GetComponent<EnemySpawner>();
+        enemySpawner.StopSpawning();
+        // now we need to hid the Menu and Show the GameOVerScreen.
+    }
 }
