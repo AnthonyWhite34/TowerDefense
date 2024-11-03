@@ -23,6 +23,7 @@ public class BaseHealth : MonoBehaviour
     public void TakeDamage(int damage) // function called in Health.
     {
         currentHealth = currentHealth - damage;
+        EnemySpawner.onEnemyDestroy.Invoke(); // destroys enemy and adds to the counters.
         Debug.Log($"BaseHealth: {currentHealth}");
         // Check if base health is depleted
         if (currentHealth <= 0)

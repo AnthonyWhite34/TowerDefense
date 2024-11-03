@@ -13,8 +13,14 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int baseEnemies = 8;
     [SerializeField] private float enemiesPerSecond = 0.5f;
     [SerializeField] private float timeBetweenWaves = 5f;
-    [SerializeField] private float difficultyScalingFactor = 0.75f;
+    [SerializeField] private float difficultyScalingFactor = 1f;
     [SerializeField] private float enemiesPerSecondCap = 15f;
+
+    [Header("Enemy Limits")]
+    [SerializeField] private int[] maxEnemiesDefeatedPerLevel = { 5, 20, 30, 44 }; // adds how many enemies to fight each level
+    // skip first index because thats the MainMenu. 
+    private int maxEnemiesDefeated;
+    private int enemiesDefeated = 0;
 
     [Header("Events")]
     public static UnityEvent onEnemyDestroy = new UnityEvent();
@@ -23,34 +29,45 @@ public class EnemySpawner : MonoBehaviour
     private float timeSinceLastSpawn;
     private int enemiesAlive;
     private int enemiesLeftToSpawn;
-    private float eps; // enimes per second
+    private float eps; // Enemies per second
     private bool isSpawning = false;
+
 
     [Header("List")]
     private List<GameObject> spawnedEnemies = new List<GameObject>();
 
+    private void Awake()
+    {
+        onEnemyDestroy.AddListener(EnemyDestroyed); // Called from the health class
+    }
+
     void Start()
     {
         Scene currentScene = SceneManager.GetActiveScene();
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentScene.name != "MainMenu")
         {
+            maxEnemiesDefeated = maxEnemiesDefeatedPerLevel[sceneIndex];
+            //SetMaxEnemiesDefeated();
             StartCoroutine(StartWave());
         }
     }
 
     void Update()
     {
-        if (!isSpawning) return;
+        if (!isSpawning) return; //if were already spawning dont spawn
         timeSinceLastSpawn += Time.deltaTime;
 
-        if (timeSinceLastSpawn >= (1f / eps) && enemiesLeftToSpawn > 0)
+        if (timeSinceLastSpawn >= (1f / eps) && enemiesLeftToSpawn >= 0) // 30 >= 1 && 
         {
             SpawnEnemy();
             enemiesLeftToSpawn--;
             enemiesAlive++;
             timeSinceLastSpawn = 0f;
         }
-        if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
+
+        // Check if all enemies have been defeated for the wave or if the max defeated limit is reached
+        if ((enemiesAlive == 0 && enemiesLeftToSpawn == 0) || enemiesDefeated >= maxEnemiesDefeated)
         {
             EndWave();
         }
@@ -61,17 +78,38 @@ public class EnemySpawner : MonoBehaviour
         isSpawning = false;
         timeSinceLastSpawn = 0f;
         currentWave++;
+
+        if (enemiesDefeated >= maxEnemiesDefeated)
+        {
+            Debug.Log("Max enemies defeated for this level. Moving to the next level.");
+            // Reset the count and increase the limit for the next level
+            //enemiesDefeated = 0;
+            //SetMaxEnemiesDefeated();
+
+            //call next scene and start next level. also create an algorithm to increase the dificulty and max enemies.
+        }
+
         StartCoroutine(StartWave());
     }
 
-    private void Awake()
-    {
-        onEnemyDestroy.AddListener(EnemyDestroyed); // called from the health class
-    }
+    //private void SetMaxEnemiesDefeated()
+    //{
+    //    // Set max defeated limit based on the level or keep the highest limit if levels exceed array length
+    //    maxEnemiesDefeated = currentWave - 1 < maxEnemiesDefeatedPerLevel.Length
+    //        ? maxEnemiesDefeatedPerLevel[currentWave - 1]
+    //        : maxEnemiesDefeatedPerLevel[maxEnemiesDefeatedPerLevel.Length - 1];
+    //}
 
-    private void EnemyDestroyed()
+    public void EnemyDestroyed()
     {
         enemiesAlive--;
+        enemiesDefeated++;
+
+        // Check if the max defeated limit has been reached to stop spawning early
+        if (enemiesDefeated >= maxEnemiesDefeated)
+        {
+            StopSpawning();
+        }
     }
 
     public IEnumerator StartWave()
@@ -119,4 +157,23 @@ public class EnemySpawner : MonoBehaviour
         spawnedEnemies.Clear(); // Clear the list after destroying all instances
         //LevelManager.Main.EndGame();
     }
+
+    //function that will increase the difficulty and scale enemy size each level. 
+    //public void GenerateLevelDifficulty(int[] array)
+    //{
+    //    if (array.Length > 1)
+    //    {
+    //        array[1] = 20; 
+    //    }
+
+    //    float growthFactor = 1.25f;
+
+
+    //    for (int i = 2; i < array.Length; i++)
+    //    {
+    //        array[i] = Mathf.RoundToInt(array[i - 1] * growthFactor);
+    //    }
+    //}
+
+
 }

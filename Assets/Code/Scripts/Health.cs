@@ -17,6 +17,7 @@ public class Health : MonoBehaviour
         if (hitPoints <= 0)
         {
             EnemySpawner.onEnemyDestroy.Invoke();//justdecrements the enemy counter
+            //EnemySpawner.FindFirstObjectByType<EnemySpawner>().EnemyDestroyed();
             LevelManager.Main.IncreaseCurrency(currencyWorth);
             Destroy(gameObject);
         }
