@@ -63,6 +63,32 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void LevelWon()
+    {
+        Debug.Log("LevelWon Called in LevelManager");
+
+        // Stop enemy spawning
+        EnemySpawner enemySpawner = gameObject.GetComponent<EnemySpawner>();
+        if (enemySpawner != null)
+        {
+            enemySpawner.StopSpawning();
+        }
+        else
+        {
+            Debug.LogError("EnemySpawner component not found on LevelManager GameObject.");
+        }
+
+        // Call the Won Screen method from Menu instead
+         Menu menu = FindFirstObjectByType<Menu>();
+        
+            Debug.Log("YouWon called from LevelWon method in LevelManager");
+        menu.ShowYouWonScreen(); // shows the you won scree. 
+        
+        
+            //Debug.LogError("Menu component not found in the scene.");
+        
+    }
+
     // When called, it will end the game
     public void EndGame()
     {
@@ -91,5 +117,11 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogError("Menu component not found in the scene.");
         }
+    }
+
+    public void ForceWin()
+    {
+        EnemySpawner enemySpawner = gameObject.GetComponent<EnemySpawner>();
+        enemySpawner.ForceMaxKills();
     }
 }

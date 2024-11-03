@@ -9,6 +9,7 @@ public class Menu : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject shopMenu;
+    [SerializeField] private GameObject youWon;
 
     private bool isMenuOpen = true;
 
@@ -65,4 +66,16 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void ShowYouWonScreen()
+    {
+        if (shopMenu != null) shopMenu.SetActive(false);
+        if (gameOverScreen != null) gameOverScreen.SetActive(false);
+        if (youWon != null) youWon.SetActive(true);
+    }
+    public void PlayNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+    }
+
 }

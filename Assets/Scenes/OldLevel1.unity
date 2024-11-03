@@ -2892,7 +2892,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currencyUI: {fileID: 882836503}
   anim: {fileID: 1572354461}
-  menu: {fileID: 1572354458}
+  gameOverScreen: {fileID: 0}
+  shopMenu: {fileID: 0}
+  youWon: {fileID: 0}
 --- !u!1 &1611462181
 GameObject:
   m_ObjectHideFlags: 0
@@ -3235,6 +3237,7 @@ MonoBehaviour:
   timeBetweenWaves: 5
   difficultyScalingFactor: 0.75
   enemiesPerSecondCap: 15
+  maxEnemiesDefeatedPerLevel: 0000000000000000000000000000000000000000
 --- !u!210 &2102129615
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -3293,6 +3296,8 @@ MonoBehaviour:
   - {fileID: 555762127}
   - {fileID: 731417101}
   - {fileID: 1921513932}
+  basePrefab: {fileID: 0}
+  endPoint: {fileID: 0}
   currency: 0
 --- !u!1001 &1229791170166214862
 PrefabInstance:
