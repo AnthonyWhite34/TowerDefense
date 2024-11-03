@@ -1,55 +1,68 @@
-using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private TextMeshProUGUI currencyUI;
     [SerializeField] private Animator anim;
-    [SerializeField] private GameObject gameOverScreen; // Game Over reference
+    [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject shopMenu;
 
     private bool isMenuOpen = true;
 
-    private void Start()
-    {
-        ToggleMenu();
-        ShowMenu(); // Show menu when a level loads, if needed
-    }
+    //private void Start()
+    //{
+    //    //ToggleMenu();
+    //    //ShowMenu();
+    //}
 
-    private void Update()
-    {
-        if (currencyUI != null && LevelManager.Main != null)
-        {
-            currencyUI.text = LevelManager.Main.currency.ToString();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (currencyUI != null && LevelManager.Main != null)
+    //    {
+    //        currencyUI.text = LevelManager.Main.currency.ToString();
+    //    }
+    //}
 
-    public void ShowMenu()
+    private void OnGUI() // Dont Change
     {
-        Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name != "MainMenu")
-        {
-            ToggleMenu();
-        }
+        currencyUI.text = LevelManager.Main.currency.ToString();
     }
-
-    public void ToggleMenu() //for the shop menu animation
+    public void SetSelected()//Dont Change 
     {
+
+    }
+    //public void ShowMenu()
+    //{
+    //    Scene currentScene = SceneManager.GetActiveScene();
+    //    if (currentScene.name != "MainMenu")
+    //    {
+    //        ToggleMenu();
+    //    }
+    //}
+
+    public void ToggleMenu()
+    {
+        Debug.Log(anim.name);
         isMenuOpen = !isMenuOpen;
         anim.SetBool("MenuOpen", isMenuOpen);
     }
 
-    public void ShowGameOverScreen() //might need to delete.
+    public void ShowGameOverScreen()
     {
-        
         if (shopMenu != null) shopMenu.SetActive(false);
         if (gameOverScreen != null) gameOverScreen.SetActive(true);
     }
 
-    public void SetSelected()
+    public void RestartGame()
     {
-        // Implement selection logic here, if needed
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ExitToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -1,55 +1,46 @@
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Main;
 
+    [Header("References")]
     public Transform startPoint;
     public Transform[] path;
+    [SerializeField] private GameObject basePrefab;
 
+    [Header("Attributes")]
+    [SerializeField] public Transform endPoint;
     public int currency;
     public static bool gameOver = false;
-
-    private Menu menu;
-
-    [SerializeField] private GameObject shopMenu; // Assign in Inspector
-    [SerializeField] private GameObject gameOverScreen; // Assign in Inspector
 
     private void Awake()
     {
         Main = this;
-
-        // Check for an existing Menu component on the same GameObject
-        menu = gameObject.GetComponent<Menu>();
-        if (menu == null)
-        {
-            Debug.LogWarning("Menu component not found on this GameObject.");
-        }
     }
 
     private void Start()
     {
+        endPoint = path[path.Length - 1];
+        Debug.Log($"end of path is set to {endPoint}");
         currency = 100;
+        SpawnBaseHealth();
+    }
 
-        // Show shopMenu when the level starts
-        if (shopMenu != null)
+    public void SpawnBaseHealth()
+    {
+        
+
+        if (endPoint != null && basePrefab != null)
         {
-            shopMenu.SetActive(true);
+            Instantiate(basePrefab, endPoint.position, Quaternion.identity);
         }
         else
         {
-            Debug.LogError("Shop menu is not assigned in the Inspector.");
-        }
-
-        // Ensure Game Over screen is hidden at the start
-        if (gameOverScreen != null)
-        {
-            gameOverScreen.SetActive(false);
-        }
-        else
-        {
-            Debug.LogError("Game Over screen is not assigned in the Inspector.");
+            Debug.LogWarning("endPoint or baseHealthPrefab is not set.");
         }
     }
 
@@ -89,8 +80,16 @@ public class LevelManager : MonoBehaviour
             Debug.LogError("EnemySpawner component not found on LevelManager GameObject.");
         }
 
-        // Hide shopMenu and show Game Over screen
-        if (shopMenu != null) shopMenu.SetActive(false);
-        if (gameOverScreen != null) gameOverScreen.SetActive(true);
+        // Call the ShowGameOverScreen method from Menu instead
+        Menu menu = FindFirstObjectByType<Menu>();
+        if (menu != null)
+        {
+            Debug.Log("GameOverScreen called from EndGame method in LevelManager");
+            menu.ShowGameOverScreen();
+        }
+        else
+        {
+            Debug.LogError("Menu component not found in the scene.");
+        }
     }
 }

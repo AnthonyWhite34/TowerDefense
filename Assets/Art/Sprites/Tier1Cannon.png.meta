@@ -335,7 +335,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Tier1Cannon_0: -8393559636360882551
+      Tier1Cannon_1: 6734418102959694166
+      Tier1Cannon_2: -234900354140680217
+      Tier1Cannon_3: 7583383135300029158
+      Tier1Cannon_4: -4853924779722826678
+      Tier1Cannon_5: 920939028737245959
+      Tier1Cannon_6: 4177320277691792609
+      Tier1Cannon_7: -6479145027531345917
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
