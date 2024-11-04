@@ -12,6 +12,7 @@ public class EnemyMovement : MonoBehaviour
     private int pathIndex = 0;
 
     private float baseSpeed;
+    public bool IsSlowed { get; set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -61,5 +62,6 @@ public class EnemyMovement : MonoBehaviour
     public void ResetSpeed()
     {
         movementSpeed = baseSpeed;
+        IsSlowed = false;
     }
 }

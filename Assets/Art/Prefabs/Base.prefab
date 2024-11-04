@@ -149,7 +149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rbBase: {fileID: 8581562505722190501}
-  baseHealthPrefab: {fileID: 3615964003786717304}
   maxHealth: 10
 --- !u!50 &8581562505722190501
 Rigidbody2D:

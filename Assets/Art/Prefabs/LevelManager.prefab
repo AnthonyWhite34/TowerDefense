@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3624068147261736451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2059616827070404814}
+  - component: {fileID: 7955551197535973496}
+  - component: {fileID: 4964212947627862437}
+  - component: {fileID: 336162588877207946}
+  - component: {fileID: 1703552915307393737}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2059616827070404814
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3624068147261736451}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.01, y: -0.06, z: 0.04329418}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &7955551197535973496
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3624068147261736451}
+  m_Enabled: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+--- !u!114 &4964212947627862437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3624068147261736451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb481bd8561f5047915d46c6fd4da75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPoint: {fileID: 0}
+  path:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  basePrefab: {fileID: 3615964003786717304, guid: ba147553fef56b74590cd319a0b73607, type: 3}
+  endPoint: {fileID: 0}
+  currency: 100
+--- !u!114 &336162588877207946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3624068147261736451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb83ec90aeefba4ab1cfc17ed434e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 4070663742897259593, guid: cc194023eb86bc5429bb44027281933f, type: 3}
+  - {fileID: 4070663742897259593, guid: cc194023eb86bc5429bb44027281933f, type: 3}
+  - {fileID: 7452432541631580616, guid: e8a0d26d9a56e934695e8b1ff8ac7f9e, type: 3}
+  baseEnemies: 8
+  enemiesPerSecond: 1
+  timeBetweenWaves: 5
+  difficultyScalingFactor: 1.25
+  enemiesPerSecondCap: 15
+  maxEnemiesDefeatedPerLevel: 140000001e0000002c0000002c0000002c0000002c000000
+--- !u!114 &1703552915307393737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3624068147261736451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209db28d547f463408dbd802a5dd2518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towers:
+  - Name: Basic Turret
+    Cost: 100
+    Prefab: {fileID: 108917735929520256, guid: aca6409ff5088e14e9a75c4ce1d7d813, type: 3}
+  - Name: Freeze Turret
+    Cost: 150
+    Prefab: {fileID: 8259219749526077851, guid: 0ba5c5fd31be07a44a93112e8c09333d, type: 3}
+  - Name: Energy Turret
+    Cost: 100
+    Prefab: {fileID: 108917735929520256, guid: 315334f5a8ff6b6458a87eef072e24bc, type: 3}

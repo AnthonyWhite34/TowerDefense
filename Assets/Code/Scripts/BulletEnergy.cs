@@ -1,3 +1,6 @@
+using Unity.VisualScripting;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletEnergy : MonoBehaviour
@@ -6,8 +9,10 @@ public class BulletEnergy : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
 
     [Header("Attributes")]
-    [SerializeField] private float bulletSpeed = 15f;
-    [SerializeField] private int bulletDamage = 4;
+    [SerializeField] private float bulletSpeed = 3f;
+    [SerializeField] private int bulletDamage = 30;
+    [SerializeField] private float explosionRadius = 2f;
+    [SerializeField] private int explosionDamage = 10;
 
     private Transform target;
 
@@ -34,14 +39,26 @@ public class BulletEnergy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Health enemyHealth = other.gameObject.GetComponent<Health>();
+        // Perform explosion damage to all enemies within the explosion radius
+        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
 
-        if (enemyHealth != null)
+        foreach (Collider2D collider in hitObjects)
         {
-            enemyHealth.TakeDamage(bulletDamage); // Apply damage to the enemy
+            Health enemyHealth = collider.GetComponent<Health>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(explosionDamage);
+            }
         }
 
-        // Destroy the bullet after impact
+        // Call base behavior to destroy the bullet after collision
         Destroy(gameObject);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Draw the explosion radius in the editor for better visualization
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
 }
