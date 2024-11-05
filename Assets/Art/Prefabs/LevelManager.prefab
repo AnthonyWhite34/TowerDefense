@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3624068147261736451
+--- !u!1 &6784382185615260424
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2059616827070404814}
-  - component: {fileID: 7955551197535973496}
-  - component: {fileID: 4964212947627862437}
-  - component: {fileID: 336162588877207946}
-  - component: {fileID: 1703552915307393737}
+  - component: {fileID: 9167465627232227263}
+  - component: {fileID: 4626761351443112026}
+  - component: {fileID: 5279323402533758985}
+  - component: {fileID: 3621113856171288319}
+  - component: {fileID: 3901587290453319701}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -20,13 +20,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2059616827070404814
+--- !u!4 &9167465627232227263
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3624068147261736451}
+  m_GameObject: {fileID: 6784382185615260424}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.01, y: -0.06, z: 0.04329418}
@@ -35,25 +35,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!210 &7955551197535973496
+--- !u!210 &4626761351443112026
 SortingGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3624068147261736451}
+  m_GameObject: {fileID: 6784382185615260424}
   m_Enabled: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
---- !u!114 &4964212947627862437
+--- !u!114 &5279323402533758985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3624068147261736451}
+  m_GameObject: {fileID: 6784382185615260424}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5eb481bd8561f5047915d46c6fd4da75, type: 3}
@@ -76,13 +76,13 @@ MonoBehaviour:
   basePrefab: {fileID: 3615964003786717304, guid: ba147553fef56b74590cd319a0b73607, type: 3}
   endPoint: {fileID: 0}
   currency: 100
---- !u!114 &336162588877207946
+--- !u!114 &3621113856171288319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3624068147261736451}
+  m_GameObject: {fileID: 6784382185615260424}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bb83ec90aeefba4ab1cfc17ed434e6c, type: 3}
@@ -95,16 +95,16 @@ MonoBehaviour:
   baseEnemies: 8
   enemiesPerSecond: 1
   timeBetweenWaves: 5
-  difficultyScalingFactor: 1.25
+  difficultyScalingFactor: 0.75
   enemiesPerSecondCap: 15
   maxEnemiesDefeatedPerLevel: 140000001e0000002c0000002c0000002c0000002c000000
---- !u!114 &1703552915307393737
+--- !u!114 &3901587290453319701
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3624068147261736451}
+  m_GameObject: {fileID: 6784382185615260424}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 209db28d547f463408dbd802a5dd2518, type: 3}
@@ -114,9 +114,12 @@ MonoBehaviour:
   - Name: Basic Turret
     Cost: 100
     Prefab: {fileID: 108917735929520256, guid: aca6409ff5088e14e9a75c4ce1d7d813, type: 3}
+  - Name: Double Barrel Rifle
+    Cost: 500
+    Prefab: {fileID: 108917735929520256, guid: 19ef4daed48a5814da73f74d08a8d326, type: 3}
+  - Name: Energy Cannon
+    Cost: 1000
+    Prefab: {fileID: 108917735929520256, guid: 315334f5a8ff6b6458a87eef072e24bc, type: 3}
   - Name: Freeze Turret
     Cost: 150
     Prefab: {fileID: 8259219749526077851, guid: 0ba5c5fd31be07a44a93112e8c09333d, type: 3}
-  - Name: Energy Turret
-    Cost: 100
-    Prefab: {fileID: 108917735929520256, guid: 315334f5a8ff6b6458a87eef072e24bc, type: 3}

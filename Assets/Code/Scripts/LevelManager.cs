@@ -1,6 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -13,34 +11,62 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject basePrefab;
 
     [Header("Attributes")]
-    [SerializeField] public Transform endPoint;
+    public Transform endPoint;
     public int currency;
     public static bool gameOver = false;
 
     private void Awake()
     {
         Main = this;
+
+        // Find the GameObject named "path"
+        GameObject pathObject = GameObject.Find("Path");
+        if (pathObject != null)
+        {
+            // Get all child transforms of the "path" GameObject
+            int pathLength = pathObject.transform.childCount;
+            path = new Transform[pathLength];
+
+            for (int i = 0; i < pathLength; i++)
+            {
+                path[i] = pathObject.transform.GetChild(i);
+            }
+
+            // Set startPoint to the first element in path, and endPoint to the last
+            if (path.Length > 0)
+            {
+                startPoint = path[0];
+                endPoint = path[path.Length - 1];
+                Debug.Log($"Start Point: {startPoint}, End Point: {endPoint}");
+            }
+        }
+        else
+        {
+            Debug.LogError("GameObject named 'path' not found in the scene.");
+        }
     }
 
     private void Start()
     {
-        endPoint = path[path.Length - 1];
-        Debug.Log($"end of path is set to {endPoint}");
         currency = 100;
+        StartCoroutine(DelayedSpawnBaseHealth());  // Start the coroutine with a delay
+    }
+
+    private IEnumerator DelayedSpawnBaseHealth()
+    {
+        yield return new WaitForSeconds(0.1f); // Small delay to ensure all objects are initialized
         SpawnBaseHealth();
     }
 
     public void SpawnBaseHealth()
     {
-        
-
         if (endPoint != null && basePrefab != null)
         {
             Instantiate(basePrefab, endPoint.position, Quaternion.identity);
         }
         else
         {
-            Debug.LogWarning("endPoint or baseHealthPrefab is not set.");
+            Debug.LogWarning("endPoint or basePrefab is not set.");
         }
     }
 
@@ -67,7 +93,6 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("LevelWon Called in LevelManager");
 
-        // Stop enemy spawning
         EnemySpawner enemySpawner = gameObject.GetComponent<EnemySpawner>();
         if (enemySpawner != null)
         {
@@ -78,24 +103,23 @@ public class LevelManager : MonoBehaviour
             Debug.LogError("EnemySpawner component not found on LevelManager GameObject.");
         }
 
-        // Call the Won Screen method from Menu instead
-         Menu menu = FindFirstObjectByType<Menu>();
-        
+        Menu menu = FindFirstObjectByType<Menu>();
+        if (menu != null)
+        {
             Debug.Log("YouWon called from LevelWon method in LevelManager");
-        menu.ShowYouWonScreen(); // shows the you won scree. 
-        
-        
-            //Debug.LogError("Menu component not found in the scene.");
-        
+            menu.ShowYouWonScreen();
+        }
+        else
+        {
+            Debug.LogError("Menu component not found in the scene.");
+        }
     }
 
-    // When called, it will end the game
     public void EndGame()
     {
         Debug.Log("EndGame Called in LevelManager");
         gameOver = true;
 
-        // Stop enemy spawning
         EnemySpawner enemySpawner = gameObject.GetComponent<EnemySpawner>();
         if (enemySpawner != null)
         {
@@ -106,7 +130,6 @@ public class LevelManager : MonoBehaviour
             Debug.LogError("EnemySpawner component not found on LevelManager GameObject.");
         }
 
-        // Call the ShowGameOverScreen method from Menu instead
         Menu menu = FindFirstObjectByType<Menu>();
         if (menu != null)
         {
@@ -122,6 +145,14 @@ public class LevelManager : MonoBehaviour
     public void ForceWin()
     {
         EnemySpawner enemySpawner = gameObject.GetComponent<EnemySpawner>();
-        enemySpawner.ForceMaxKills();
+        if (enemySpawner != null)
+        {
+            enemySpawner.ForceMaxKills();
+        }
+        else
+        {
+            Debug.LogError("EnemySpawner component not found on LevelManager GameObject.");
+        }
     }
+
 }

@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 
 public class Turret : MonoBehaviour
 {
@@ -12,39 +10,46 @@ public class Turret : MonoBehaviour
     [SerializeField] protected Transform firingPoint;
 
     [Header("Attributes")]
-    [SerializeField] private float targetingRange = 5f;
-    [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float targetingRange = 7f;
+    [SerializeField] private float rotationSpeed = 200f;
     [SerializeField] private float bps = 1f;
-
-
 
     protected Transform target;
     private float timeUntilFire;
 
     void Start()
     {
-        // Start the FindTarget method
+        // Initial target acquisition
         FindTarget();
     }
 
     void Update()
     {
-        // Rotate towards target if it's available
+        // Check if the current target is still valid
+        if (target != null && !CheckTargetIsInRange())
+        {
+            target = null; // Reset target if it's out of range
+        }
+
+        // Find a new target only if there's no current target
+        if (target == null)
+        {
+            FindTarget();
+        }
+
+        // Rotate towards and shoot at the target if available
         if (target != null)
         {
             RotateTowardsTarget();
-        }
-        if (CheckTargetIsInRange())
-        {
-            timeUntilFire += Time.deltaTime; 
-            if(timeUntilFire >= 1f / bps)
+            timeUntilFire += Time.deltaTime;
+            if (timeUntilFire >= 1f / bps)
             {
                 Shoot();
                 timeUntilFire = 0f;
             }
         }
     }
-    
+
     protected virtual void Shoot()
     {
         GameObject bulletObj = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
@@ -93,7 +98,7 @@ public class Turret : MonoBehaviour
         turretRotationPoint.rotation = Quaternion.RotateTowards(turretRotationPoint.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
-    private void OnDrawGizmosSelected()// draws the range cicle
+    private void OnDrawGizmosSelected() // Draws the range circle
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, targetingRange);

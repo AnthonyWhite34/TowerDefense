@@ -53,13 +53,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   bulletPrefab: {fileID: 4908518879497480992, guid: b6e76eb5180e25b4a803e2c888a2ac94, type: 3}
-  firingPoint: {fileID: 1659987471076214771}
-  targetingRange: 3
-  rotationSpeed: 200
-  targetUpdateDelay: 0
-  bps: 3
   firingPoint1: {fileID: 1659987471076214771}
   firingPoint2: {fileID: 3126612735234052345}
+  targetingRange: 5
+  rotationSpeed: 200
+  bps: 6
 --- !u!61 &5767065901212221728
 BoxCollider2D:
   m_ObjectHideFlags: 0

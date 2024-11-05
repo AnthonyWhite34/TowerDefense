@@ -223,9 +223,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 5884249642732594550}
   bulletSpeed: 3
-  bulletDamage: 30
+  bulletDamage: 50
   explosionRadius: 2
-  explosionDamage: 10
+  explosionDamage: 5
 --- !u!50 &5884249642732594550
 Rigidbody2D:
   serializedVersion: 5

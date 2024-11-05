@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static EnemySpawner Instance;
+
     [Header("References")]
     [SerializeField] private GameObject[] enemyPrefabs;
 
@@ -38,6 +40,16 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("Multiple instances of EnemySpawner found!");
+            Destroy(gameObject);
+        }
+
         onEnemyDestroy.AddListener(EnemyDestroyed); // Called from the health class
     }
 
@@ -48,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
         if (currentScene.name != "MainMenu")
         {
             GenerateLevelDifficulty(maxEnemiesDefeatedPerLevel);
-            maxEnemiesDefeated = maxEnemiesDefeatedPerLevel[sceneIndex];
+            maxEnemiesDefeated = maxEnemiesDefeatedPerLevel[sceneIndex] * 2;
             //SetMaxEnemiesDefeated();
             StartCoroutine(StartWave());
         }
@@ -166,12 +178,14 @@ public class EnemySpawner : MonoBehaviour
     //function that will increase the difficulty and scale enemy size each level. 
     public int[] GenerateLevelDifficulty(int[] array)
     {
+
         if (array.Length > 1)
         {
             array[1] = 20;
         }
 
-        float growthFactor = 1.25f;
+        float growthFactor = 1.25f;// set too 1.25 it it gets to hard
+
 
 
         for (int i = 2; i < array.Length; i++)
@@ -179,6 +193,10 @@ public class EnemySpawner : MonoBehaviour
             array[i] = Mathf.RoundToInt(array[i - 1] * growthFactor);
         }
         return array;
+    }
+    public int GetCurrentWave()
+    {
+        return currentWave;
     }
 
     public void ForceMaxKills()

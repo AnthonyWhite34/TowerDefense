@@ -166,7 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63903287473fcc47a8254b9e8bcdb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 20
+  baseHitPoints: 30
+  hitPointsScalingFactor: 1.5
   currencyWorth: 50
   damage: 1
 --- !u!114 &2064109153523963475
@@ -182,4 +183,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 480848565457254201}
-  movementSpeed: 1.5
+  movementSpeed: 1.3

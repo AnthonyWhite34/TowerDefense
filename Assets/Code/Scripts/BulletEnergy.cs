@@ -50,7 +50,7 @@ public class BulletEnergy : MonoBehaviour
                 enemyHealth.TakeDamage(explosionDamage);
             }
         }
-
+        other.gameObject.GetComponent<Health>().TakeDamage(bulletDamage);
         // Call base behavior to destroy the bullet after collision
         Destroy(gameObject);
     }
