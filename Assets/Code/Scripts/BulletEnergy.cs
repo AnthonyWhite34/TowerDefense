@@ -20,13 +20,18 @@ public class BulletEnergy : MonoBehaviour
     {
         target = _target;
     }
+    private void Start()
+    {
+        // Destroy the bullet after 8 seconds if it hasn't hit anything
+        Destroy(gameObject, 8f);
+    }
 
     private void FixedUpdate()
     {
         // Check if the target is still valid
         if (target == null)
         {
-            Destroy(gameObject); // Destroy the bullet if the target is gone
+            Destroy(gameObject, 3f); // Destroy the bullet if the target is gone
             return;
         }
 

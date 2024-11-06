@@ -16,24 +16,19 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float enemiesPerSecond = 0.5f;
     [SerializeField] private float timeBetweenWaves = 5f;
     [SerializeField] private float difficultyScalingFactor = 1.25f;
-    [SerializeField] private float enemiesPerSecondCap = 15f;
-
-    [Header("Enemy Limits")]
-    [SerializeField] private int[] maxEnemiesDefeatedPerLevel = new int[5]; // adds how many enemies to fight each level
-    // skip first index because thats the MainMenu. 
-    private int maxEnemiesDefeated;
-    private int enemiesDefeated = 0;
+    [SerializeField] private float enemiesPerSecondCap = 0.75f; // don't change
 
     [Header("Events")]
     public static UnityEvent onEnemyDestroy = new UnityEvent();
 
     private int currentWave = 1;
+    private int endWave = 5;
     private float timeSinceLastSpawn;
     private int enemiesAlive;
     private int enemiesLeftToSpawn;
     private float eps; // Enemies per second
     private bool isSpawning = false;
-
+    private bool gameStopped = false; // Flag to stop all further updates once the game ends
 
     [Header("List")]
     private List<GameObject> spawnedEnemies = new List<GameObject>();
@@ -59,33 +54,27 @@ public class EnemySpawner : MonoBehaviour
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentScene.name != "MainMenu")
         {
-            GenerateLevelDifficulty(maxEnemiesDefeatedPerLevel);
-            maxEnemiesDefeated = maxEnemiesDefeatedPerLevel[sceneIndex] * 2;
-            //SetMaxEnemiesDefeated();
             StartCoroutine(StartWave());
         }
     }
 
     void Update()
     {
-        if (!isSpawning) return; //if were already spawning dont spawn
+        if (gameStopped) return; // Stop all updates if the game has ended
+        if (!isSpawning) return; // If we're not spawning, skip the update logic
+
         timeSinceLastSpawn += Time.deltaTime;
 
-        if (timeSinceLastSpawn >= (1f / eps) && enemiesLeftToSpawn > 0) // 30 >= 1 && 
+        if (timeSinceLastSpawn >= (1f / eps) && enemiesLeftToSpawn > 0)
         {
             SpawnEnemy();
             enemiesLeftToSpawn--;
             enemiesAlive++;
             timeSinceLastSpawn = 0f;
         }
-        if(timeSinceLastSpawn >= 5f && enemiesLeftToSpawn <= 0 && enemiesAlive <= 0)
-        {
-            enemiesLeftToSpawn = 0;
-            enemiesAlive = 0;
-        }
 
-        // Check if all enemies have been defeated for the wave or if the max defeated limit is reached
-        if ((enemiesAlive == 0 && enemiesLeftToSpawn == 0) || enemiesDefeated >= maxEnemiesDefeated)
+        // Check if all enemies have been defeated and no more are left to spawn
+        if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
         {
             EndWave();
         }
@@ -93,44 +82,46 @@ public class EnemySpawner : MonoBehaviour
 
     private void EndWave()
     {
+        if (gameStopped) return; // Don't process anything if the game has ended
+
         isSpawning = false;
         timeSinceLastSpawn = 0f;
-        currentWave++;
 
-        if (enemiesDefeated >= maxEnemiesDefeated)
+        if (currentWave >= endWave)
         {
-            Debug.Log("Max enemies defeated for this level. Moving to the next level.");
             StopSpawning();
-            LevelManager.Main.LevelWon();// called on level manager to show you win UI
-            
         }
-
-        StartCoroutine(StartWave());
+        else
+        {
+            currentWave++;
+            StartCoroutine(StartWave());
+        }
     }
-
-    //private void SetMaxEnemiesDefeated()
-    //{
-    //    // Set max defeated limit based on the level or keep the highest limit if levels exceed array length
-    //    maxEnemiesDefeated = currentWave - 1 < maxEnemiesDefeatedPerLevel.Length
-    //        ? maxEnemiesDefeatedPerLevel[currentWave - 1]
-    //        : maxEnemiesDefeatedPerLevel[maxEnemiesDefeatedPerLevel.Length - 1];
-    //}
 
     public void EnemyDestroyed()
     {
-        enemiesAlive--;
-        enemiesDefeated++;
+        if (gameStopped) return; // Ignore enemy destroyed events if the game has ended
 
-        // Check if the max defeated limit has been reached to stop spawning early
-        if (enemiesDefeated >= maxEnemiesDefeated)
+        enemiesAlive--;
+
+        // If all enemies are defeated and we are at the final wave, display the win screen after a delay
+        if (enemiesAlive == 0 && currentWave > endWave)
         {
-            StopSpawning();
-            LevelManager.Main.LevelWon();// called on level manager to show you win UI
+            StartCoroutine(DisplayWinScreenWithDelay(2f)); // 2-second delay, adjust as needed
         }
+    }
+
+    private IEnumerator DisplayWinScreenWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        LevelManager.Main.LevelWon();
+        gameStopped = true; // Set gameStopped to true to prevent further updates
     }
 
     public IEnumerator StartWave()
     {
+        if (gameStopped) yield break; // Stop wave initiation if the game has ended
+
         yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning = true;
         enemiesLeftToSpawn = EnemiesPerWave();
@@ -139,6 +130,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
+        if (gameStopped) return; // Don't spawn if the game has ended
+
         int index = Random.Range(0, enemyPrefabs.Length);
         GameObject prefabToSpawn = enemyPrefabs[index];
         GameObject enemyInstance = Instantiate(prefabToSpawn, LevelManager.Main.startPoint.position, Quaternion.identity);
@@ -159,50 +152,28 @@ public class EnemySpawner : MonoBehaviour
 
     public void StopSpawning()
     {
-        Debug.Log("Stopping spawning and destroying all remaining enemies.");
-        isSpawning = false;
+        isSpawning = false; // Stop spawning
         enemiesLeftToSpawn = 0;
+        gameStopped = true; // Set the flag to stop further updates
 
-        // Destroy each spawned enemy and clear the list
-        foreach (GameObject enemy in spawnedEnemies)
+        // If all enemies are defeated, display the win screen after a delay
+        if (enemiesAlive == 0)
         {
-            if (enemy != null)
-            {
-                Destroy(enemy);
-            }
+            StartCoroutine(DisplayWinScreenWithDelay(2f)); // 2-second delay, adjust as needed
         }
-        spawnedEnemies.Clear(); // Clear the list after destroying all instances
-        //LevelManager.Main.EndGame();
     }
 
-    //function that will increase the difficulty and scale enemy size each level. 
-    public int[] GenerateLevelDifficulty(int[] array)
-    {
-
-        if (array.Length > 1)
-        {
-            array[1] = 20;
-        }
-
-        float growthFactor = 1.25f;// set too 1.25 it it gets to hard
-
-
-
-        for (int i = 2; i < array.Length; i++)
-        {
-            array[i] = Mathf.RoundToInt(array[i - 1] * growthFactor);
-        }
-        return array;
-    }
     public int GetCurrentWave()
     {
         return currentWave;
     }
 
+    // For debug purposes
     public void ForceMaxKills()
     {
-        enemiesDefeated = maxEnemiesDefeated;
+        if (gameStopped) return; // Prevent further debug actions if the game has ended
+
+        currentWave = endWave + 1;
         EndWave();
     }
-
 }

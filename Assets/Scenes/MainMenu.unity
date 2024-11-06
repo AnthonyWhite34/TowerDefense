@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 151284348342508855, guid: e0ff8b24eebd2694aa3c7f66787aa492, type: 3}
+      propertyPath: m_text
+      value: Exit Game
+      objectReference: {fileID: 0}
     - target: {fileID: 4024535274455710808, guid: e0ff8b24eebd2694aa3c7f66787aa492, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

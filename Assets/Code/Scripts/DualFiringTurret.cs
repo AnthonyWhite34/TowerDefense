@@ -20,9 +20,8 @@ public class DualFiringTurret : MonoBehaviour
     protected Transform target;
     private float timeUntilFire;
 
-    void Start()
+    private void Start()
     {
-        // Initial target acquisition
         FindTarget();
     }
 

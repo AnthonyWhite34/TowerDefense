@@ -6,6 +6,7 @@ public class Menu : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private TextMeshProUGUI currencyUI;
+    [SerializeField] private TextMeshProUGUI waveUI;
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject shopMenu;
@@ -13,23 +14,11 @@ public class Menu : MonoBehaviour
 
     private bool isMenuOpen = true;
 
-    //private void Start()
-    //{
-    //    //ToggleMenu();
-    //    //ShowMenu();
-    //}
-
-    //private void Update()
-    //{
-    //    if (currencyUI != null && LevelManager.Main != null)
-    //    {
-    //        currencyUI.text = LevelManager.Main.currency.ToString();
-    //    }
-    //}
 
     private void OnGUI() // Dont Change
     {
         currencyUI.text = LevelManager.Main.currency.ToString();
+        waveUI.text = EnemySpawner.Instance.GetCurrentWave().ToString();
     }
     public void SetSelected()//Dont Change 
     {

@@ -10,8 +10,8 @@ public class TurretSlomo : MonoBehaviour
     [SerializeField] private LayerMask enemyMask;
 
     [Header("Attribute")]
-    [SerializeField] private float targetingRange = 5f;
-    [SerializeField] private float aps = .25f;
+    [SerializeField] private float targetingRange = 3f;
+    [SerializeField] private float aps = .5f;
     [SerializeField] private float freezeTime = 1f;
 
     private float timeUntilFire;

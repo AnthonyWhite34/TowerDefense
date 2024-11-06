@@ -4,7 +4,7 @@ public class Health : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField] private float baseHitPoints = 30;  // Initial HP before scaling
-    [SerializeField] private float hitPointsScalingFactor = 1.1f; // Health scaling factor per wave
+    [SerializeField] private float hitPointsScalingFactor = 1.5f; // Health scaling factor per wave
     [SerializeField] private int currencyWorth = 50;
 
     private int hitPoints;
@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
     private void Start()
     {
         // Initialize and scale health based on the current wave from LevelManager
-        int currentWave = EnemySpawner.Instance.GetCurrentWave();
+        int currentWave = EnemySpawner.Instance.GetCurrentWave(); // original is EnemySpawner 
         hitPoints = Mathf.RoundToInt(baseHitPoints * Mathf.Pow(hitPointsScalingFactor, currentWave - 1));
         Debug.Log($"{gameObject.name} initialized with {hitPoints} HP for wave {currentWave}");
     }

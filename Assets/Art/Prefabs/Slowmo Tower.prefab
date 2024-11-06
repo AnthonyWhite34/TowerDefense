@@ -103,6 +103,6 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
-  targetingRange: 2.5
+  targetingRange: 3
   aps: 0.5
   freezeTime: 1

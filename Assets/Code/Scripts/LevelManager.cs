@@ -6,30 +6,38 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Main;
 
     [Header("References")]
-    public Transform startPoint;
-    public Transform[] path;
+    [SerializeField] private GameObject Path;
     [SerializeField] private GameObject basePrefab;
 
     [Header("Attributes")]
-    public Transform endPoint;
+
     public int currency;
     public static bool gameOver = false;
+
+    [Header("Events")]
+    public Transform startPoint;
+    public Transform[] path;
+    public Transform endPoint;
+
 
     private void Awake()
     {
         Main = this;
 
         // Find the GameObject named "path"
-        GameObject pathObject = GameObject.Find("Path");
-        if (pathObject != null)
+        //GameObject pathObject = GameObject.Find("Path");
+        
+        Debug.Log("Path found");
+        if (Path != null)
         {
+            int pathLength = Path.transform.childCount;
             // Get all child transforms of the "path" GameObject
-            int pathLength = pathObject.transform.childCount;
+            //int pathLength = pathObject.transform.childCount;
             path = new Transform[pathLength];
 
             for (int i = 0; i < pathLength; i++)
             {
-                path[i] = pathObject.transform.GetChild(i);
+                path[i] = Path.transform.GetChild(i);
             }
 
             // Set startPoint to the first element in path, and endPoint to the last

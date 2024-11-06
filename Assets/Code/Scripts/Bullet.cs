@@ -17,6 +17,12 @@ public class Bullet : MonoBehaviour
     {
         target = _target;
     }
+    private void Start()
+    {
+        // Destroy the bullet after 7 seconds if it hasn't hit anything
+        Destroy(gameObject, 7f);
+    }
+
 
     private void FixedUpdate()
     {
@@ -24,7 +30,7 @@ public class Bullet : MonoBehaviour
 
         if (target == null)
         {
-            Destroy(gameObject); // Destroy bullet if target is lost
+            Destroy(gameObject, 3f); // Destroy bullet if target is lost
             return;
         }
 

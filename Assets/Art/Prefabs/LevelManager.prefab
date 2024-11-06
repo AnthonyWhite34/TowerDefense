@@ -59,23 +59,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb481bd8561f5047915d46c6fd4da75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Path: {fileID: 0}
+  basePrefab: {fileID: 3615964003786717304, guid: ba147553fef56b74590cd319a0b73607, type: 3}
+  currency: 100
   startPoint: {fileID: 0}
   path:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  basePrefab: {fileID: 3615964003786717304, guid: ba147553fef56b74590cd319a0b73607, type: 3}
   endPoint: {fileID: 0}
-  currency: 100
 --- !u!114 &3621113856171288319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,12 +82,14 @@ MonoBehaviour:
   - {fileID: 4070663742897259593, guid: cc194023eb86bc5429bb44027281933f, type: 3}
   - {fileID: 4070663742897259593, guid: cc194023eb86bc5429bb44027281933f, type: 3}
   - {fileID: 7452432541631580616, guid: e8a0d26d9a56e934695e8b1ff8ac7f9e, type: 3}
+  - {fileID: 4070663742897259593, guid: cc194023eb86bc5429bb44027281933f, type: 3}
+  - {fileID: 4070663742897259593, guid: ee1596f1df1c198469a97d96451be924, type: 3}
+  - {fileID: 4070663742897259593, guid: ee1596f1df1c198469a97d96451be924, type: 3}
   baseEnemies: 8
-  enemiesPerSecond: 1
+  enemiesPerSecond: 0.5
   timeBetweenWaves: 5
-  difficultyScalingFactor: 0.75
-  enemiesPerSecondCap: 15
-  maxEnemiesDefeatedPerLevel: 140000001e0000002c0000002c0000002c0000002c000000
+  difficultyScalingFactor: 1.15
+  enemiesPerSecondCap: 0.75
 --- !u!114 &3901587290453319701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +110,7 @@ MonoBehaviour:
     Cost: 500
     Prefab: {fileID: 108917735929520256, guid: 19ef4daed48a5814da73f74d08a8d326, type: 3}
   - Name: Energy Cannon
-    Cost: 1000
+    Cost: 1500
     Prefab: {fileID: 108917735929520256, guid: 315334f5a8ff6b6458a87eef072e24bc, type: 3}
   - Name: Freeze Turret
     Cost: 150
