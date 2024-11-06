@@ -25,7 +25,8 @@ public class Health : MonoBehaviour
 
         if (hitPoints <= 0)
         {
-            EnemySpawner.onEnemyDestroy.Invoke();  // Just decrements the enemy counter
+            EnemySpawner.Instance.EnemyDestroyed(gameObject);
+            //EnemySpawner.onEnemyDestroy.Invoke();  // Just decrements the enemy counter
             LevelManager.Main.IncreaseCurrency(currencyWorth);
             Destroy(gameObject);
         }

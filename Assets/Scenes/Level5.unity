@@ -704,30 +704,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3621113856171288319, guid: f762bb6ba2a44b34ebe8d4ab8fa03310, type: 3}
-      propertyPath: maxEnemiesDefeatedPerLevel.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3621113856171288319, guid: f762bb6ba2a44b34ebe8d4ab8fa03310, type: 3}
-      propertyPath: 'maxEnemiesDefeatedPerLevel.Array.data[8]'
-      value: 44
-      objectReference: {fileID: 0}
-    - target: {fileID: 3621113856171288319, guid: f762bb6ba2a44b34ebe8d4ab8fa03310, type: 3}
-      propertyPath: 'maxEnemiesDefeatedPerLevel.Array.data[9]'
-      value: 44
-      objectReference: {fileID: 0}
     - target: {fileID: 5279323402533758985, guid: f762bb6ba2a44b34ebe8d4ab8fa03310, type: 3}
       propertyPath: Path
       value: 
       objectReference: {fileID: 6165559078488941554}
-    - target: {fileID: 5279323402533758985, guid: f762bb6ba2a44b34ebe8d4ab8fa03310, type: 3}
-      propertyPath: endPoint
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5279323402533758985, guid: f762bb6ba2a44b34ebe8d4ab8fa03310, type: 3}
-      propertyPath: startPoint
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6784382185615260424, guid: f762bb6ba2a44b34ebe8d4ab8fa03310, type: 3}
       propertyPath: m_Name
       value: LevelManager

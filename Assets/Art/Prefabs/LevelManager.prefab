@@ -90,6 +90,7 @@ MonoBehaviour:
   timeBetweenWaves: 5
   difficultyScalingFactor: 1.15
   enemiesPerSecondCap: 0.75
+  spawnedEnemies: []
 --- !u!114 &3901587290453319701
 MonoBehaviour:
   m_ObjectHideFlags: 0

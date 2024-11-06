@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
     private bool gameStopped = false; // Flag to stop all further updates once the game ends
 
     [Header("List")]
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
+    [SerializeField] private List<GameObject> spawnedEnemies = new List<GameObject>();
 
     private void Awake()
     {
@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
             Destroy(gameObject);
         }
 
-        onEnemyDestroy.AddListener(EnemyDestroyed); // Called from the health class
+        //onEnemyDestroy.AddListener(EnemyDestroyed()); // Called from the health class
     }
 
     void Start()
@@ -69,48 +69,70 @@ public class EnemySpawner : MonoBehaviour
         {
             SpawnEnemy();
             enemiesLeftToSpawn--;
-            enemiesAlive++;
+            //enemiesAlive++;
             timeSinceLastSpawn = 0f;
         }
 
         // Check if all enemies have been defeated and no more are left to spawn
-        if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
+        if (enemiesAlive <= 0 && enemiesLeftToSpawn <= 0)
         {
+
+            if (enemiesAlive <= 0 && currentWave == endWave)
+            {
+                StopSpawning();
+                return;
+            }
             EndWave();
         }
+        //if (enemiesAlive == 0 && currentWave == endWave + 1)
+        //{
+        //    LevelManager.Main.LevelWon();
+        //}
     }
 
     private void EndWave()
     {
-        if (gameStopped) return; // Don't process anything if the game has ended
+        if (gameStopped) return; // Don't process if the game has ended
 
-        isSpawning = false;
-        timeSinceLastSpawn = 0f;
+        // Check if all enemies are defeated and no more are left to spawn
+        if (enemiesAlive <= 0 && enemiesLeftToSpawn <= 0)
+        {
+            isSpawning = false;
+            timeSinceLastSpawn = 0f;
 
-        if (currentWave >= endWave)
-        {
-            StopSpawning();
-        }
-        else
-        {
-            currentWave++;
-            StartCoroutine(StartWave());
+            if (currentWave > endWave)
+            {
+                StopSpawning();
+            }
+            else
+            {
+                currentWave++;
+                StartCoroutine(StartWave());
+            }
         }
     }
 
-    public void EnemyDestroyed()
+    public void EnemyDestroyed(GameObject enemy)
     {
         if (gameStopped) return; // Ignore enemy destroyed events if the game has ended
 
-        enemiesAlive--;
+        if(spawnedEnemies.Contains(enemy))
+        {
+            spawnedEnemies.Remove(enemy);
+            Destroy(enemy);
+            enemiesAlive--;
+        }
 
-        // If all enemies are defeated and we are at the final wave, display the win screen after a delay
+        spawnedEnemies.RemoveAll(item => item == null);
+
+        enemiesAlive = spawnedEnemies.Count;
+
+        //If all enemies are defeated and we are at the final wave, display the win screen after a delay
         if (enemiesAlive == 0 && currentWave > endWave)
         {
             StartCoroutine(DisplayWinScreenWithDelay(2f)); // 2-second delay, adjust as needed
         }
     }
-
     private IEnumerator DisplayWinScreenWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -124,6 +146,7 @@ public class EnemySpawner : MonoBehaviour
 
         yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning = true;
+        enemiesAlive = 0;
         enemiesLeftToSpawn = EnemiesPerWave();
         eps = EnemiesPerSecond();
     }
@@ -132,12 +155,15 @@ public class EnemySpawner : MonoBehaviour
     {
         if (gameStopped) return; // Don't spawn if the game has ended
 
+        //enemiesAlive++;
+
         int index = Random.Range(0, enemyPrefabs.Length);
         GameObject prefabToSpawn = enemyPrefabs[index];
         GameObject enemyInstance = Instantiate(prefabToSpawn, LevelManager.Main.startPoint.position, Quaternion.identity);
 
         // Add the spawned enemy to the list
         spawnedEnemies.Add(enemyInstance);
+        enemiesAlive++;
     }
 
     private int EnemiesPerWave()
@@ -157,9 +183,9 @@ public class EnemySpawner : MonoBehaviour
         gameStopped = true; // Set the flag to stop further updates
 
         // If all enemies are defeated, display the win screen after a delay
-        if (enemiesAlive == 0)
+        if (enemiesAlive <= 0 && currentWave == endWave)
         {
-            StartCoroutine(DisplayWinScreenWithDelay(2f)); // 2-second delay, adjust as needed
+            StartCoroutine(DisplayWinScreenWithDelay(2f));
         }
     }
 

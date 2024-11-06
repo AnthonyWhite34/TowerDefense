@@ -38,8 +38,7 @@ public class Bullet : MonoBehaviour
         rb.linearVelocity = direction * bulletSpeed;
     }
 
-    // Mark this method as virtual to allow overriding in child classes
-    protected virtual void OnCollisionEnter2D(Collision2D other)
+    public void OnCollisionEnter2D(Collision2D other)
     {
         other.gameObject.GetComponent<Health>().TakeDamage(bulletDamage);
         Destroy(gameObject); // Destroy the bullet after impact
