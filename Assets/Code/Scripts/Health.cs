@@ -36,6 +36,7 @@ public class Health : MonoBehaviour
     {
         if (other.gameObject.GetComponent<BaseHealth>() != null)
         {
+            //EnemySpawner.Instance.BaseTookDamage();
             other.gameObject.GetComponent<BaseHealth>().TakeDamage(damage);
             Destroy(gameObject);
         }

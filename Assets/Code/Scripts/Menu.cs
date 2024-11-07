@@ -1,12 +1,14 @@
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System.Collections;
 
 public class Menu : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private TextMeshProUGUI currencyUI;
     [SerializeField] private TextMeshProUGUI waveUI;
+    [SerializeField] private TextMeshProUGUI TextBaseHP;
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject shopMenu;
@@ -19,6 +21,7 @@ public class Menu : MonoBehaviour
     {
         currencyUI.text = LevelManager.Main.currency.ToString();
         waveUI.text = EnemySpawner.Instance.GetCurrentWave().ToString();
+        TextBaseHP.text = BaseHealth.Instance.GetHealth().ToString();
     }
     public void SetSelected()//Dont Change 
     {

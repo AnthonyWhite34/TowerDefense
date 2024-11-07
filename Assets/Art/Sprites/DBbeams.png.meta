@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 2074acd3120c9084892ae375ac9a9913
+guid: 511edb0b2770b3b469850b9f52014788
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3848226275774371240
-    second: Doublebarrel_0
+      213: 2971051802916083834
+    second: DBbeams_0
+  - first:
+      213: 4659340184110582839
+    second: DBbeams_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Doublebarrel_0
+      name: DBbeams_0
       rect:
         serializedVersion: 2
-        x: 454
-        y: 397
-        width: 154
-        height: 349
+        x: 202
+        y: 194
+        width: 101
+        height: 101
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +144,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8a51bd6b865a76530800000000000000
-      internalID: 3848226275774371240
+      spriteID: a78d81a9fdb4b3920800000000000000
+      internalID: 2971051802916083834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBbeams_1
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 172
+        width: 25
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73c4d91163d49a040800000000000000
+      internalID: 4659340184110582839
       vertices: []
       indices: 
       edges: []
@@ -160,8 +185,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Doublebarrel_0: 3848226275774371240
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

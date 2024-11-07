@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class BaseHealth : MonoBehaviour
 {
+    public static BaseHealth Instance;
+
     [Header("References")]
     [SerializeField] private Rigidbody2D rbBase;
 
@@ -10,6 +12,20 @@ public class BaseHealth : MonoBehaviour
     [SerializeField] private int maxHealth = 10;
     private int currentHealth;
 
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+
+        }
+        else
+        {
+            Debug.LogWarning("Multiple instances of BaseHealth detected. There should only be one");
+            Destroy(Instance);
+        }
+    }
     private void Update()
     {
 
@@ -23,7 +39,8 @@ public class BaseHealth : MonoBehaviour
     public void TakeDamage(int damage) // function called in Health.
     {
         currentHealth = currentHealth - damage;
-        EnemySpawner.onEnemyDestroy.Invoke(); // destroys enemy and adds to the counters.
+        EnemySpawner.Instance.BaseTookDamage();
+        //EnemySpawner.onEnemyDestroy.Invoke(); // destroys enemy and adds to the counters.
         Debug.Log($"BaseHealth: {currentHealth}");
         // Check if base health is depleted
         if (currentHealth <= 0)
@@ -36,5 +53,10 @@ public class BaseHealth : MonoBehaviour
         }
     }
 
-    
+    public int GetHealth()
+    {
+        return currentHealth;
+    }
+
+
 }

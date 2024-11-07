@@ -84,6 +84,13 @@ public class EnemySpawner : MonoBehaviour
             }
             EndWave();
         }
+        foreach (GameObject enemy in spawnedEnemies)
+        {
+            if (enemy == null)
+            {
+                spawnedEnemies.Remove(enemy);
+            }
+        }
         //if (enemiesAlive == 0 && currentWave == endWave + 1)
         //{
         //    LevelManager.Main.LevelWon();
@@ -123,9 +130,9 @@ public class EnemySpawner : MonoBehaviour
             enemiesAlive--;
         }
 
-        spawnedEnemies.RemoveAll(item => item == null);
+        spawnedEnemies.RemoveAll(item => item == null);// removes any null items in our spawnedEnemies list
 
-        enemiesAlive = spawnedEnemies.Count;
+        enemiesAlive = spawnedEnemies.Count;// enemiesAlive should reflect how many spawnedEnemies we have in our list. 
 
         //If all enemies are defeated and we are at the final wave, display the win screen after a delay
         if (enemiesAlive == 0 && currentWave > endWave)
@@ -201,5 +208,9 @@ public class EnemySpawner : MonoBehaviour
 
         currentWave = endWave + 1;
         EndWave();
+    }
+    public void BaseTookDamage()
+    {
+        enemiesAlive = enemiesAlive - 1;
     }
 }
